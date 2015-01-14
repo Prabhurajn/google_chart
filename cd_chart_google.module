@@ -1,0 +1,182 @@
+<?php
+
+/**
+ * Implements hook_menu().
+ */
+ function cd_chart_google_menu() {
+  $items = array();
+
+  $items['cd_chart_google'] = array(
+    'title' => 'classic Driver google Line Chart',
+    'access arguments' => array('access content'),
+    'page callback' => 'cd_chart_google_line',
+    'type' => MENU_CALLBACK,
+  );
+
+  $items['cd_chart_google/bar'] = array(
+    'title' => 'classic Driver google Bar Chart',
+    'access arguments' => array('access content'),
+    'page callback' => 'cd_chart_google_bar',
+    'type' => MENU_CALLBACK,
+  );
+
+  $items['cd_chart_google/column'] = array(
+    'title' => 'classic Driver google Column Chart',
+    'access arguments' => array('access content'),
+    'page callback' => 'cd_chart_google_column',
+    'type' => MENU_CALLBACK,
+  );
+
+  $items['cd_chart_google/pie'] = array(
+    'title' => 'classic Driver google Pie Chart',
+    'access arguments' => array('access content'),
+    'page callback' => 'cd_chart_google_pie',
+    'type' => MENU_CALLBACK,
+  );
+
+  return $items;
+}
+
+/**
+ *  Creating graphs
+ */
+function cd_chart_google_line() {
+  
+  $header = $sessions = array();
+  $header = array('GER','USA','UK','France','Switzerland','Belgium','Italy','Netherlands','Austria','AUS');
+  $sessions = array(194924,112772,95061,82951,43031,34485,27181,26860,20823,18265);
+  
+  // Building the rows, array of the data point arrays.
+  $rows = array($sessions);
+
+  // The labels for the rows.
+  $columns = array('No. Of sessions');
+
+  // Put all the data into the settings array,
+  // which will be send to draw.
+  // Must empty the array first.
+  $settings = array();
+  $settings['chart']['chartOne'] = array(
+    'header' => $header,
+    'rows' => $rows,
+    'columns' => $columns,
+    'chartType' => GOOGLE_CHART_TOOLS_DEFAULT_CHART,
+    'containerId' =>  'line_chart',
+    'options' => array( // Optionals.
+      'curveType' => "function",
+      'forceIFrame' => FALSE,
+      'title' => 'No of Seesion',
+      'width' => 800,
+      'height' => 400
+    )
+  );
+
+  // Draw it.
+  draw_chart($settings);
+  return '<p>Example line chart:</p><div id="line_chart"></div>';
+}
+
+function cd_chart_google_bar() {
+
+  $header = $sessions = array();
+  $header = array('GER','USA','UK','France','Switzerland','Belgium','Italy','Netherlands','Austria','AUS');
+  $sessions = array(194924,112772,95061,82951,43031,34485,27181,26860,20823,18265);
+  
+  // Building the rows, array of the data point arrays.
+  $rows = array($sessions);
+
+  // The labels for the rows.
+  $columns = array('No. Of sessions');
+
+  $settings = array();
+
+  $settings['chart']['chartTwo'] = array(
+    'header' => $header,
+    'rows' => $rows,
+    'columns' => $columns,
+    'chartType' => 'BarChart',
+    'containerId' =>  'bar_chart',
+    'options' => array( // Optionals.
+      'curveType' => "function",
+      'forceIFrame' => FALSE,
+      'title' => 'No of Seesion',
+      'width' => 800,
+      'height' => 400
+    )
+  );
+
+  // Draw it.
+  draw_chart($settings);
+  return '<p>Example bar chart:</p><div id="bar_chart"></div>';
+
+}
+
+function cd_chart_google_column() {
+	
+  $header = $sessions = array();
+  $header = array('GER','USA','UK','France','Switzerland','Belgium','Italy','Netherlands','Austria','AUS');
+  $sessions = array(194924,112772,95061,82951,43031,34485,27181,26860,20823,18265);
+  
+  // Building the rows, array of the data point arrays.
+  $rows = array($sessions);
+
+  // The labels for the rows.
+  $columns = array('No. Of sessions');
+
+  $settings = array();
+
+  $settings['chart']['chartThree'] = array(
+    'header' => $header,
+    'rows' => $rows,
+    'columns' => $columns,
+    'chartType' => 'ColumnChart',
+    'containerId' =>  'column_chart',
+    'options' => array( // Optionals.
+      'curveType' => "function",
+      'forceIFrame' => FALSE,
+      'title' => 'No of Seesion',
+      'width' => 800,
+      'height' => 400
+    )
+  );
+
+  // Draw it.
+  draw_chart($settings);
+  return '<p>Example column chart:</p><div id="column_chart"></div>';
+}
+
+function cd_chart_google_pie() {
+	
+  $header = $sessions = array();
+  $header = array('GER','USA','UK','France','Switzerland','Belgium','Italy','Netherlands','Austria','AUS');
+  $sessions = array(194924,112772,95061,82951,43031,34485,27181,26860,20823,18265);
+  
+  // Building the rows, array of the data point arrays.
+  $rows = array($sessions);
+
+  // The labels for the rows.
+  $columns = array('No. Of sessions');
+
+  $settings = array();
+
+  $settings['chart']['chartTFour'] = array(
+    'header' => $header,
+    'rows' => $rows,
+    'columns' => $columns,
+    'chartType' => 'PieChart',
+    'containerId' =>  'pie_chart',
+    'options' => array( // Optionals.
+      'curveType' => "function",
+      'forceIFrame' => FALSE,
+      'title' => 'No of Seesion',
+      'width' => 800,
+      'height' => 400
+    )
+  );
+
+  // Draw it.
+  draw_chart($settings);
+  return '<p>Example Pie chart:</p><div id="pie_chart"></div>';
+}
+
+
